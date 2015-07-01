@@ -1,1 +1,1 @@
-eval $(dircolors ~/.dircolors)
+[[ -f ~/.dircolors ]] && eval $(dircolors ~/.dircolors)
