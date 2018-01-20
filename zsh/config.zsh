@@ -39,6 +39,13 @@ setopt complete_aliases
 
 zle -N newtab
 
+backward-kill-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+}
+zle -N backward-kill-dir
+bindkey '^[^?' backward-kill-dir
+
 bindkey ';5D' backward-word
 bindkey ';5C' forward-word
 bindkey '^[^[[D' backward-word
