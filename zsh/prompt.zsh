@@ -79,7 +79,7 @@ prompt_char() {
   # As root, add warning box before prompt
   if is_root
   then
-    echo "%{$fg_bold[red]%}[!]%{fg_bold[cyan]%} $%{$reset_color%}"
+    echo "%{$fg_bold[red]%}[!]%{$fg_bold[cyan]%} $%{$reset_color%}"
   else
     echo "%{$fg_bold[cyan]%}>%{$reset_color%}"
   fi
