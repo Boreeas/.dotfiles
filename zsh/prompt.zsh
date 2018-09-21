@@ -71,9 +71,37 @@ directory_name() {
   echo "%{$fg_bold[cyan]%}$(pwd | sed s@/home/$(whoami)@~@)%{$reset_color%}"
 }
 
-export PROMPT=$'\n%{$fg_bold[green]%}\[$(hostname)\]%{$reset_color%}\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n%{$fg_bold[cyan]%}>%{$reset_color%} '
+is_root() {
+  [[ "$(id -u)" == "0" ]]
+}
+
+prompt_char() {
+  # As root, add warning box before prompt
+  if is_root
+  then
+    echo "%{$fg_bold[red]%}[!]%{fg_bold[cyan]%} $%{$reset_color%}"
+  else
+    echo "%{$fg_bold[cyan]%}>%{$reset_color%}"
+  fi
+}
+
+display_username() {
+  # highlight root red, otherwise cyan
+  if is_root
+  then
+    echo "%{$fg_bold[red]%}$(whoami)%{$reset_color%}"
+  else
+    echo "%{$fg_bold[cyan]%}$(whoami)%{$reset_color%}"
+  fi
+}
+
+export PROMPT=$'\n%{$fg_bold[green]%}\[$(display_username)%{$fg_bold[green]%}@$(hostname)\]%{$reset_color%}\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n$(prompt_char) '
+
 set_prompt () {
-  export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
+  # If the last prompt returned 0 (-> %?)
+  #  print nothing
+  # else print a red frowny smiley
+  export RPROMPT="%(?..%{$fg_bold[red]%}:(%{$reset_color%})"
 }
 
 precmd() {
