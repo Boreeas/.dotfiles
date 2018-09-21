@@ -71,7 +71,7 @@ directory_name() {
   echo "%{$fg_bold[cyan]%}$(pwd | sed s@/home/$(whoami)@~@)%{$reset_color%}"
 }
 
-export PROMPT=$'\n%{$fg_bold[green]%}\[$(hostname)\]%{$reset_color%}\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n%{$fg_bold[cyan]%}》%{$reset_color%} '
+export PROMPT=$'\n%{$fg_bold[green]%}\[$(hostname)\]%{$reset_color%}\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n%{$fg_bold[cyan]%}>%{$reset_color%} '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
